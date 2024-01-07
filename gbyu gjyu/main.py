@@ -2,15 +2,18 @@ from pygame import*
 from random import *
 
 class GameSprite(sprite.Sprite):
-    #
     def __init__(self, player_image, player_x, player_y, player_speed):
-        super().__init__()
         #
-        self.image = image.load(player_image), (80, 280)
-        self.speed=player_speed
+        sprite.Sprite.__init__(self)
+        #
+        self.image = transform.scale(
+             image.load(player_image), (player_x, player_y))
+        self.speed = player_speed
+        #
         self.rect = self.image.get_rect()
         self.rect.x = player_x
         self.rect.y = player_y
+
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 class Player(GameSprite):
@@ -79,11 +82,10 @@ mixer.music.load("fonmusic.ogg")
 mixer.music.play()
 #money = mixer.Sound('money.ogg')
 #kick = mixer.Sound('kick.ogg')
-boy = Player('029.png', 5, win_heigth - 80, 4)
-Fredy = Enemy ('Fredbear.png', win_width - 80, 280, 4)
-Bony = Enemy ('Bony.png', win_width - 80, 280, 4)
-Foxy = Enemy ('Foxy.png', win_width - 80, 280, 4)
-
+boy = Player('boy10.png' , 300, 600, 4)
+Fredy = Enemy('Fredbear10.png', 400, 280, 4)
+Bony = Enemy('Bony10.png', 400, 280, 4)
+Foxy = Enemy ('Foxy10.jpg', win_width - 80, 280, 4)
 
 #final = GameSprite('treasure.png', win_width - 120, win_heigth - 80, 0)
 final=False
@@ -103,11 +105,14 @@ while game:
     if finish !=True:
     
         window.blit(background,(0, 0))
- #       player.update()
+        #boy.update()
+        Bony.update()
 #        monster.update()
 ##
-#         player.reset()       monster.reset()
+        #boy.reset()
+#        monster.reset()
 #        final.reset()
+        Bony.reset()
         w1.draw_wall()
         w2.draw_wall()
         w3.draw_wall()
